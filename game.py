@@ -82,20 +82,6 @@ def new_game():
     players = int(input('\nEnter the number of players: '))
     main(players)
 
-def create_hands(players):
-    """ Создание игроков с картами на руках """
-    d = Deck() # создание колоды
-    players_hands_values = [] 
-    print('\nTrump card: ' + str(d.trump_card())+'\n')
-    for i in range(1,players + 1): # цикл для создания рук игроков
-        player = Template('Player $i').substitute(i=i) # динамическое создание имени игрока
-        player_hand = Hand(player)
-        for j in range(0,6): # добавление карт в руки игрока
-             player_hand.add_card(d.deal_card())
-        players_hands_values.append(player_hand.get_value()) # добавление значения текущего игрока в список
-        print(player_hand)
-    return players_hands_values  # возвращает список значений   
-
 def main(players):
     """ Алгоритм работы игры """
     if players == 1:
@@ -112,4 +98,18 @@ def main(players):
             numWinner=numWinner
         ))
 
-new_game()
+def create_hands(players):
+    """ Создание игроков с картами на руках """
+    d = Deck() # создание колоды
+    players_hands_values = [] 
+    print('\nTrump card: ' + str(d.trump_card())+'\n')
+    for i in range(1,players + 1): # цикл для создания рук игроков
+        player = Template('Player $i').substitute(i=i) # динамическое создание имени игрока
+        player_hand = Hand(player)
+        for j in range(0,6): # добавление карт в руки игрока
+             player_hand.add_card(d.deal_card())
+        players_hands_values.append(player_hand.get_value()) # добавление значения текущего игрока в список
+        print(player_hand)
+    return players_hands_values  # возвращает список значений   
+
+new_game() # Запуск игры
